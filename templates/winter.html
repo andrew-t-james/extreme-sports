@@ -1,0 +1,12 @@
+{% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+<h1>Winter Sports</h1>
+
+
+{% for sport in sports %}
+<div>
+  <a href="{{url_for('sport_description', sport_id = sport.id) }}">
+    <p>{{sport.name}}</p>
+  </a>
+</div>
+
+{% endfor %} {% endblock %}

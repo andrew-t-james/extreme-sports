@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+  {% block head %}
+  <link rel="stylesheet" href="#">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel=stylesheet type=text/css href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/styles.css') }}">
+  <title>Catalogue</title>
+  {% endblock %}
+</head>
+
+<body>
+  <header>
+
+    <nav class="navbar is-light">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <p>Extreme Sports</p>
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item is-active" href="/winter">
+              Winter
+            </a>
+            <a class="navbar-item" href="/summer">
+              Summer
+            </a>
+            <span class="navbar-item">
+              <a class="button is-link" href='javascript:sendTokenToServer()' onclick="sendTokenToServer()" scope="public_profile,email">
+                <span class="icon">
+                  <i class="fa fa-facebook"></i>
+                </span>
+                <span>Login</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+  <main>
+    <div id="content">{% block content %}{% endblock %}</div>
+  </main>
+  <!-- Hero footer: will stick at the bottom -->
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Developed</strong> by
+          <a href="https://github.com/ajames20">Andrew James</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

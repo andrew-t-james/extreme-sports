@@ -1,0 +1,27 @@
+{% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+
+<section class="hero is-info is-medium">
+  <a href="{{url_for('winter') }}">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          <p>Winter</p>
+        </h1>
+      </div>
+    </div>
+  </a>
+</section>
+
+<section class="hero is-primary is-medium">
+  <a href="{{url_for('summer') }}">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          <p>Summer</p>
+        </h1>
+      </div>
+    </div>
+  </a>
+</section>
+
+{% endblock %}

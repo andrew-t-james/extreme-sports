@@ -1,0 +1,22 @@
+ {% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title has-text-info has-text-centered">Are you sure you want to delete
+      <strong class="is-warning">{{sport.name}}</strong>
+    </h1>
+    <div class="column is-half is-offset-one-quarter">
+
+      <form action="{{ url_for('deleteSport', sport_id=sport.id)}}" method='POST'>
+        <div class="field is-grouped has-text-centered">
+          <div class="control">
+            <input class="button is-danger" type='submit' value='Delete'>
+          </div>
+          <div class="control">
+            <a class="button is-text is-warning" href="{{ url_for('index')}}">Cancel</a>
+          </div>
+        </div>
+    </div>
+    </form>
+  </div>
+</section>
+{% endblock %}
