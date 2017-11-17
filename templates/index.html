@@ -1,27 +1,37 @@
 {% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 
-<section class="hero is-info is-medium">
-  <a href="{{url_for('season', sport_season='winter')}}">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          <p>Winter</p>
-        </h1>
+<div class="wrapper is-flex-tablet">
+  <section class="hero winter">
+    <a href="{{url_for('season', sport_season='winter')}}">
+      <div class="hero-body">
+        <video class="is-hidden-touch" poster="" id="video--left" playsinline autoplay muted loop>
+          <source src="../static/assets/snow.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+          <h1 class="title is-centered">
+            <p>Winter</p>
+          </h1>
+        </div>
       </div>
-    </div>
-  </a>
-</section>
+    </a>
+  </section>
 
-<section class="hero is-primary is-medium">
-  <a href="{{url_for('season', sport_season='summer') }}">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          <p>Summer</p>
-        </h1>
+
+  <section class="hero summer">
+    <a href="{{url_for('season', sport_season='summer') }}">
+      <div class="hero-body">
+        <video class="is-hidden-touch" poster="" id="video--right" playsinline autoplay muted loop>
+          <source src="../static/assets/skate.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+          <h1 class="title">
+            <p>Summer</p>
+          </h1>
+        </div>
       </div>
-    </div>
-  </a>
-</section>
+    </a>
+  </section>
+</div>
+
 
 {% endblock %}

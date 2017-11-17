@@ -1,0 +1,60 @@
+{% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title has-text-info has-text-centered">Edit {{item.name.title()}}</h1>
+    <div class="column is-half is-offset-one-quarter">
+
+      <form action="{{url_for('edit_sport', sport_id=item.id)}}" method="POST">
+
+        <div class="field">
+          <label class="label" for="name">{{item.name.title()}}</label>
+          <div class="control">
+            <input class="input" type="text" name="name" value="{{item.name}}" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Description URL</label>
+          <div class="control">
+            <input class="input" type="text" name="description_link" value="{{item.description_link}}" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Image URL</label>
+          <div class="control">
+            <input class="input" type="text" name="image_link" value="{{item.image_link}}" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            <textarea class="textarea" name="description">{{item.description}}</textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="category_id" value="1" required> Winter
+            </label>
+            <label class="radio">
+              <input type="radio" name="category_id" value="2" required> Summer
+            </label>
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <a class="button is-text is-warning" href="{{ url_for('sport_description', sport_id=item.id)}}">Cancel</a>
+          </div>
+        </div>
+    </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

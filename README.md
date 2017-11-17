@@ -1,1 +1,1 @@
-flask_outh
+requests_oauthlib

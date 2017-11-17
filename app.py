@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, Categories, Sports, User
+from models import Base, Categories, Sports
 
 
 app = Flask(__name__)
@@ -57,18 +57,18 @@ def season(sport_season):
 
 
 @app.route('/sport/new', methods=['GET', 'POST'])
-def newMenuItem():
+def new_sport():
     '''Add new Sport Route using GET to render the form,
     POST to submit the new sport to the database'''
     if request.method == 'POST':
-        new_sport = Sports(
+        new_sport_to_add = Sports(
             name=request.form['name'],
             description=request.form['description'],
             description_link=request.form['description_link'],
             image_link=request.form['image_link'],
             category_id=request.form['category_id'])
 
-        session.add(new_sport)
+        session.add(new_sport_to_add)
         session.commit()
         # flash("new menu item created!")
         return redirect(url_for('index'))
@@ -76,8 +76,25 @@ def newMenuItem():
         return render_template('newsport.html')
 
 
+@app.route('/sport/<int:sport_id>/edit', methods=['GET', 'POST'])
+def edit_sport(sport_id):
+    edited_sport = session.query(Sports).filter_by(id=sport_id).one()
+
+    if request.method == 'POST':
+        edited_sport.name = request.form['name']
+        edited_sport.description = request.form['description']
+        edited_sport.description_link = request.form['description_link']
+        edited_sport.image_link = request.form['image_link']
+        edited_sport.category_id = request.form['category_id']
+        session.commit()
+        flash("Item successfully edited")
+        return redirect(url_for('sport_description', sport_id=edited_sport.id))
+    else:
+        return render_template('editsport.html',  sport_id=sport_id, item=edited_sport)
+
+
 @app.route('/sport/<int:sport_id>/delete', methods=['GET', 'POST'])
-def deleteSport(sport_id):
+def delete_sport(sport_id):
     '''Route search for and to Delete a specific sport from the database'''
     sport_to_delete = session.query(Sports).filter_by(id=sport_id).first()
     if request.method == 'POST':

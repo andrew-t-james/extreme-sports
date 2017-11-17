@@ -5,13 +5,13 @@
       <strong class="is-warning">{{sport.name}}</strong>
     </h1>
     <div class="column is-4 is-offset-5">
-      <form action="{{ url_for('deleteSport', sport_id=sport.id)}}" method='POST'>
+      <form action="{{ url_for('delete_sport', sport_id=sport.id)}}" method='POST'>
         <div class="field is-grouped">
           <div class="control">
             <input class="button is-danger" type='submit' value='Delete'>
           </div>
           <div class="control">
-            <a class="button is-text is-warning" href="{{ url_for('season', sport_season=sport.category.season.lower())}}">Cancel</a>
+            <a class="button is-text is-warning" href="{{ url_for('sport_description', sport_id=sport.id)}}">Cancel</a>
           </div>
         </div>
       </form>
