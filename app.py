@@ -3,23 +3,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Categories, Sports, User
 
-# session imports for auth
-from flask import session as login_session
-import random
-import string
-
-from oauth2client.client import flow_from_clientsecrets
-from oauth2client.client import FlowExchangeError
-from flask import make_response
-import requests
-import httplib2
-import json
 
 app = Flask(__name__)
 
-CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Extreme Sports Application"
 
 engine = create_engine('sqlite:///catalogue.db')
 Base.metadata.bind = engine

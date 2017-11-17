@@ -4,7 +4,7 @@
 </div>
 <div class="section">
   <div class="container">
-    <div class="columns is-multiline is-mobile">
+    <div class="columns is-multiline">
       {% for sport in sports %}
       <div class="column is-one-third">
         <a href="{{url_for('sport_description', sport_id = sport.id) }}">
