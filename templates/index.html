@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 
 <section class="hero is-info is-medium">
-  <a href="{{url_for('winter') }}">
+  <a href="{{url_for('season', sport_season='winter')}}">
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
@@ -13,7 +13,7 @@
 </section>
 
 <section class="hero is-primary is-medium">
-  <a href="{{url_for('summer') }}">
+  <a href="{{url_for('season', sport_season='summer') }}">
     <div class="hero-body">
       <div class="container">
         <h1 class="title">

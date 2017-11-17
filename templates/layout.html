@@ -28,10 +28,10 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
-            <a class="navbar-item is-active" href="/winter">
+            <a {% if request.path=='/winter' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/winter">
               Winter
             </a>
-            <a class="navbar-item" href="/summer">
+            <a {% if request.path=='/summer' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/summer">
               Summer
             </a>
             <span class="navbar-item">

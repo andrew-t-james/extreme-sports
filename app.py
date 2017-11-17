@@ -13,14 +13,14 @@ session = DBSession()
 
 
 # api json endpoints
-@app.route('/api/categories')
+@app.route("/api/categories")
 def categories_api():
     '''Returns a JSON Response for all categories in db'''
     category = session.query(Categories).all()
     return jsonify(Categories=[i.serialize for i in category])
 
 
-@app.route('/api/sports')
+@app.route("/api/sports")
 def sports_api():
     '''Returns a JSON Response for all sports in db'''
     sports = session.query(Sports).all()
@@ -35,15 +35,6 @@ def index():
     return render_template("index.html", categories=categories)
 
 
-@app.route("/winter")
-def winter():
-    '''Winter Route returns a list of all Sports in the Winter
-    Category and renders the winter page'''
-    sports = session.query(Sports).join(
-        Categories).filter_by(id=1).all()
-    return render_template("winter.html", sports=sports)
-
-
 @app.route("/sport/<int:sport_id>")
 def sport_description(sport_id):
     '''Route for individual Winter Sports returns sportdescription page'''
@@ -51,18 +42,22 @@ def sport_description(sport_id):
     return render_template("sportdescription.html", sport_id=sport_id)
 
 
-@app.route("/summer")
-def summer():
-    '''Winter Route returns a list of all Sports in the Summer
-    Category and renders the summer page'''
+@app.route("/<sport_season>")
+def season(sport_season):
+    '''Conditionally Render season page based on season'''
+    if request.path == '/winter':
+        sports = session.query(Sports).join(
+            Categories).filter_by(id=1).all()
+        return render_template("winter.html", sports=sports, season=sport_season)
     sports = session.query(Sports).join(
         Categories).filter_by(id=2).all()
-    return render_template("summer.html", sports=sports)
+    return render_template("summer.html", sports=sports, season=sport_season)
 
 
 @app.route('/sport/new', methods=['GET', 'POST'])
 def newMenuItem():
-    '''Add new Sport Route using GET to render the form, POST to submit the new sport to the database'''
+    '''Add new Sport Route using GET to render the form,
+    POST to submit the new sport to the database'''
     if request.method == 'POST':
         new_sport = Sports(
             name=request.form['name'],
