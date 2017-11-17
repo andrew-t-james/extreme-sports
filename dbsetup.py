@@ -36,6 +36,12 @@ winter_sport2 = Sports(name="SnowCross",
 session.add(winter_sport2)
 session.commit()
 
+winter_sport3 = Sports(name="Snowmobile Freestyle",
+                       description="The second half of the 20th century saw the rise of recreational snowmobiling, whose riders are called snowmobilers or sledders. Recreational riding is known as snowcross/racing, trail riding, freestyle, mountain climbing, boondocking, carving, ditchbanging and grass drags. In the summertime snowmobilers can drag race on grass, asphalt strips, or even across water (see Snowmobile skipping). Snowmobiles are sometimes modified to compete in long-distance off-road races such as Trevor Erickson's #901 entry in the 2014 Vegas to Reno race.", description_link="https://en.wikipedia.org/wiki/Snowmobile", image_link="http://kristianbogner.com/wp-content/uploads/2012/12/DSC_3660.jpg", category=category1)
+
+session.add(winter_sport3)
+session.commit()
+
 
 category2 = Categories(season="Summer")
 
@@ -55,11 +61,11 @@ summer_sport2 = Sports(name="BMX Vert",
 session.add(summer_sport2)
 session.commit()
 
-# menuItem2 = MenuItem(user_id=1, name="Chicken Burger", description="Juicy grilled chicken patty with tomato mayo and lettuce",
-#                      price="$5.50", course="Entree", restaurant=restaurant1)
+summer_sport3 = Sports(name="Skateboard Street",
+                       description="Street skateboarding is a style of skateboarding that focuses on tricks and transitions in public places. Street skateboarders skate in urban streets, plazas or industrial areas, making use of park benches and picnic tables, guard rails and handrails, planter boxes, bins, stairs, retaining walls and other street furniture not purpose-built for skateboarding.", description_link="https://en.wikipedia.org/wiki/Street_skateboarding", image_link="http://a.espncdn.com/media/motion/2016/0605/evc_ACTN_20160604_X_Games__Austin__FASTCLIPPER__X_99/evc_ACTN_20160604_X_Games__Austin__FASTCLIPPER__X_99.jpg", category=category2)
 
-# session.add(menuItem2)
-# session.commit()
+session.add(summer_sport3)
+session.commit()
 
 
 print("added dummy info!")
