@@ -43,14 +43,14 @@ session.add(category2)
 session.commit()
 
 
-summer_sport1 = Sports(name="Street Style Skateboarding",
-                       description="lorem ipsum", category=category2)
+summer_sport1 = Sports(name="Moto X Freestyle",
+                       description="Notable freestyle motocross events include Red Bull X-Fighters, NIGHT of the JUMPs, the X Games, Gravity Games, Big-X, Moto-X Freestyle National Championship, and Dew Action Sports Tour. Freeriding is the original form of freestyle motocross which started in the hills of southern California; due to professional racers such as Jeremy McGrath and Phil Lawrence play riding in the hills of reche canyon. It has no structure, and is traditionally done on public land. Riders for natural jumps and drop-offs to execute their tricks on. Some freeriders prefer to jump on sand dunes. In many ways, freeriding requires more skill and mental ability. Notable freeriding locations include Ocotillo Wells and Glamis Dunes in California, Beaumont, California, and Caineville, Utah.", description_link="https://en.wikipedia.org/wiki/Freestyle_Motocross", image_link="https://i.ytimg.com/vi/SiULA6_td90/maxresdefault.jpg", category=category2)
 
 session.add(summer_sport1)
 session.commit()
 
-summer_sport2 = Sports(name="X-treme Flying",
-                       description="lorem ipsum", category=category2)
+summer_sport2 = Sports(name="BMX Vert",
+                       description="Vert is a freestyle BMX discipline performed in a half pipe consisting of two quarter pipes set facing each other (much like a mini ramp), but at around 10–15 feet tall (around 2.5 to 3.5 meters high). The biggest ramp ever used in competition is the X-Games big air ramp at 27 feet (8.2 m) tall. Both ‘faces’ of the ramp have an extension to the transition that is vertical, hence the name. Coping is a round metal tube at the lip of the vert that helps freestyle BMXers do grinds, and stalls on the lip of the vert.", description_link="https://en.wikipedia.org/wiki/Freestyle_BMX#Vert_Ramp", image_link="http://www.promotocross.com/sites/default/files/styles/gallery_small/public/images/gallery/photos/doug-bmx-vert-final-640x370.jpg?itok=nnhd9_fr", category=category2)
 
 session.add(summer_sport2)
 session.commit()
