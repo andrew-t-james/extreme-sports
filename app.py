@@ -56,14 +56,10 @@ def showLogin():
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
     if request.args.get('state') != login_session['state']:
-        print(request.args.get('state'))
-        print(login_session['state'])
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
     access_token = request.data
-    print("access token received %s " % access_token)
-
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
     app_secret = json.loads(
@@ -87,8 +83,6 @@ def fbconnect():
     url = 'https://graph.facebook.com/v2.11/me?access_token=%s&fields=name,id,email' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
-    print("url sent for API access:%s" % url)
-    print("API JSON result: %s" % result)
     data = json.loads(result)
     login_session['provider'] = 'facebook'
     login_session['username'] = data["name"]
@@ -204,9 +198,12 @@ def season(sport_season):
         sports = session.query(Sports).join(
             Categories).filter_by(id=1).all()
         return render_template("winter.html", sports=sports, season=sport_season)
-    sports = session.query(Sports).join(
-        Categories).filter_by(id=2).all()
-    return render_template("summer.html", sports=sports, season=sport_season)
+    elif request.path == '/summer':
+        sports = session.query(Sports).join(
+            Categories).filter_by(id=2).all()
+        return render_template("summer.html", sports=sports, season=sport_season)
+    else:
+        return render_template("index.html")
 
 
 @app.route('/sport/new', methods=['GET', 'POST'])
