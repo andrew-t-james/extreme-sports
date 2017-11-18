@@ -1,11 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+app = Flask(__name__)
+
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Categories, Sports
 
 
-app = Flask(__name__)
-
+from flask import session as login_session
+import random
+import string
 
 engine = create_engine('sqlite:///catalogue.db')
 Base.metadata.bind = engine
@@ -27,6 +31,15 @@ def sports_api():
     '''Returns a JSON Response for all sports in db'''
     sports = session.query(Sports).all()
     return jsonify(Sports=[i.serialize for i in sports])
+
+
+@app.route("/login")
+def show_login():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in range(32))
+    login_session['state'] = state
+    # return "The current session state is %s" % login_session['state']
+    return render_template('login.html', STATE=state)
 
 
 # routes for app

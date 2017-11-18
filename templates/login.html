@@ -1,0 +1,16 @@
+{% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+
+<p>state: {{STATE}}</p>
+
+
+
+<div id="signinButton">
+  <span class="g-signin" data-scope="openid email" data-clientid="511559992240-q7u5f7qoho6qmjiuhlv26rlj0512qauv.apps.googleusercontent.com"
+    data-redirecturi="postmessage" data-accesstype="offline" data-cookiepolicy="single_host_origin" data-callback="signInCallback"
+    data-approvalprompt="force">
+  </span>
+</div>
+
+<div id="result"></div>
+
+{% endblock %}

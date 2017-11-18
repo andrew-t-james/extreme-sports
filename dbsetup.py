@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from models import Categories, Sports, Base
+from models import Categories, Sports, User, Base
 
 engine = create_engine('sqlite:///catalogue.db')
 # Bind the engine to the metadata of the Base class so that the
@@ -19,12 +19,18 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-category1 = Categories(season="Winter")
+User1 = User(name="Fake User", email="fake@fake.com",
+             picture='https://www.communitylandtrust.ca/wp-content/uploads/2015/10/placeholder.png')
+session.add(User1)
+session.commit()
+
+
+category1 = Categories(user_id=1, season="Winter")
 
 session.add(category1)
 session.commit()
 
-winter_sport1 = Sports(name="Slope Style",
+winter_sport1 = Sports(user_id=1, name="Slope Style",
                        description="Slopestyle is a winter sport in which athletes ski or snowboard down a course including a variety of obstacles including rails, jumps and other terrain park features. Points are scored for amplitude, originality and quality of tricks. The discipline has its roots in action sports like skateboarding and BMX and has very successfully crossed over into the snow sports worlds of skiing and snowboard.[1] Twin - tip skis are used and are particularly useful if the skier lands backwards. Slopestyle tricks fall mainly into four categories: spins, grinds, grabs and flips. Slopestyle is one of the freestyle disciplines, along with moguls, aerials, cross, and half - pipe.", description_link='https://en.wikipedia.org/wiki/Slopestyle', image_link="https://coresites-cdn.factorymedia.com/mpora_new/wp-content/uploads/2014/02/Billy-Jamie-sochi-03.jpg", category=category1)
 
 session.add(winter_sport1)

@@ -1,19 +1,29 @@
-import os
-import sys
-
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 
+
 Base = declarative_base()
+
+
+class User(Base):
+    '''Create model for User and relationship to Sport'''
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    picture = Column(String(250))
 
 
 class Categories(Base):
     '''Create model for season and relationship to Sport'''
     __tablename__ = 'categories'
+
     id = Column(Integer, primary_key=True)
     season = Column(String(80), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'))
     sports = relationship('Sports')
 
     @property
@@ -28,6 +38,7 @@ class Categories(Base):
 class Sports(Base):
     '''Create model for xGames sport'''
     __tablename__ = 'sport'
+
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
     description = Column(String(250))
@@ -35,6 +46,8 @@ class Sports(Base):
     image_link = Column(String(250))
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship('Categories')
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
