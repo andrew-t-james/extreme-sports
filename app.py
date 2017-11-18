@@ -18,10 +18,6 @@ import random
 import string
 
 
-CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())[
-    'web']['client_id']
-
-
 engine = create_engine('sqlite:///catalogue.db')
 Base.metadata.bind = engine
 

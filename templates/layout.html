@@ -128,8 +128,10 @@
 
     function sendTokenToServer() {
       const access_token = FB.getAuthResponse().accessToken;
-      console.log(access_token);
+      const loadingButton = document.getElementById('loginBtn');
+      // console.log(access_token);
       console.log('Welcome!  Fetching your information.... ');
+      loadingButton.classList.add('is-loading');
       FB.api('/me', response => {
         console.log(`Successful login for: ${response.name}`);
         $.ajax({
@@ -143,7 +145,7 @@
             if (result) {
               setTimeout(() => {
                 window.location.href = '/';
-              }, 2500);
+              }, 1500);
             } else {
               console.log("Error Logging in")
             }
