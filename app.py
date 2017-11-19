@@ -208,7 +208,10 @@ def get_user_info(user_id):
 
 @app.route("/sport/<int:sport_id>")
 def sport_description(sport_id):
-    '''Route for individual Sports returns sportdescription page'''
+    '''
+    Route for individual Sports returns sportdescription page
+    conditionally render pages if user is loggin in to session
+    '''
     sport_id = session.query(Sports).filter_by(id=sport_id).first()
     creator = get_user_info(sport_id.user_id)
     if 'username' not in login_session or creator.id != login_session['user_id']:
@@ -238,6 +241,7 @@ def season(sport_season):
 def new_sport():
     '''Add new Sport Route using GET to render the form,
     POST to submit the new sport to the database'''
+
     if request.method == 'POST':
         new_sport_to_add = Sports(
             name=request.form['name'],
@@ -260,6 +264,12 @@ def new_sport():
 def edit_sport(sport_id):
     '''Route search for and Edit a specific sport from the database'''
     edited_sport = session.query(Sports).filter_by(id=sport_id).one()
+    creator = get_user_info(edited_sport.user_id)
+    if creator.id != login_session['user_id']:
+        # flash("You cannot edit this Category. This Category belongs to %s" %
+        #       creator.name)
+        # return redirect(url_for('showCatalog'))
+        return render_template('index.html')
     if request.method == 'POST':
         edited_sport.name = request.form['name']
         edited_sport.description = request.form['description']
