@@ -1,6 +1,8 @@
 {% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 <section class="section">
   <div class="section has-text-right">
+    <a href="{{ url_for('edit_sport', sport_id=sport_id.id)}}">edit |</a>
+    <a href="{{ url_for('delete_sport', sport_id=sport_id.id)}}">delete</a>
   </div>
   <div class="container">
     <h1 class="title has-text-info">{{sport_id.name}}</h1>
@@ -14,5 +16,6 @@
       </figure>
     </div>
   </div>
+
 </section>
 {% endblock %}
