@@ -26,6 +26,13 @@ session = DBSession()
 
 
 # api json endpoints
+@app.route("/api/users")
+def users_api():
+    '''Returns a JSON Response for all categories in db'''
+    user = session.query(User).all()
+    return jsonify(Users=[i.serialize for i in user])
+
+
 @app.route("/api/categories")
 def categories_api():
     '''Returns a JSON Response for all categories in db'''
@@ -52,6 +59,8 @@ def showLogin():
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
     if request.args.get('state') != login_session['state']:
+        print(request.args.get('state'))
+        print(login_session['state'])
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -158,6 +167,7 @@ def createUser(login_session):
 
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
+    print(user)
     return user
 
 
@@ -177,12 +187,12 @@ def index():
                     for x in xrange(32))
     login_session['state'] = state
     categories = session.query(Categories).all()
-    return render_template("index.html", categories=categories, STATE=state)
+    return render_template("index.html", categories=categories, STATE=state, logged_in=True)
 
 
 @app.route("/sport/<int:sport_id>")
 def sport_description(sport_id):
-    '''Route for individual Winter Sports returns sportdescription page'''
+    '''Route for individual Sports returns sportdescription page'''
     sport_id = session.query(Sports).filter_by(id=sport_id).first()
     return render_template("sportdescription.html", sport_id=sport_id)
 

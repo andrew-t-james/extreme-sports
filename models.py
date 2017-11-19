@@ -16,6 +16,16 @@ class User(Base):
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
 
+    @property
+    def serialize(self):
+        '''Returns data to be JSONified for apis'''
+        return {
+            'name': self.name,
+            'email': self.email,
+            'picture': self.picture,
+            'id': self.id
+        }
+
 
 class Categories(Base):
     '''Create model for season and relationship to Sport'''
