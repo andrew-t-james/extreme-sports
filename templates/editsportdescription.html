@@ -1,6 +1,5 @@
 {% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 <section class="section">
-
   <div class="container">
     <h1 class="title has-text-info">{{sport_id.name}}</h1>
     <div class="section">
@@ -17,8 +16,6 @@
       <a href="{{ url_for('delete_sport', sport_id=sport_id.id)}}">delete</a>
       {% endif %}
     </div>
-
   </div>
-
 </section>
 {% endblock %}
