@@ -18,17 +18,14 @@
               <div class="media">
                 <div class="media-left">
                   <figure class="image is-48x48">
-                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                    <img src="{{sport.user.picture}}" alt="{{sport.user.name}}">
                   </figure>
                 </div>
                 <div class="media-content">
                   <p class="title is-4">{{sport.name}}</p>
                   <p class="subtitle is-6">Season: {{sport.category.season}}</p>
-                  <p class="subtitle is-6">User: {{sport.user_id}}</p>
+                  <p class="subtitle is-6">Posted By: {{sport.user.name}}</p>
                 </div>
-              </div>
-              <div class="content">
-                <!-- {{sport.description}} -->
               </div>
             </div>
           </div>

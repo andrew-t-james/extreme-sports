@@ -20,6 +20,9 @@
     }
   });
 
+  // login for logout flow
+  const logoutBtn = document.getElementById('logoutBtn');
+
   function disconnect() {
     logoutBtn.classList.add('is-loading');
     $.ajax({
@@ -32,9 +35,10 @@
     });
   }
 
-  const logoutBtn = document.getElementById('logoutBtn');
-  logoutBtn.addEventListener('click', () => {
-    console.log('working');
-    disconnect();
-  });
+  if (logoutBtn !== null) {
+    logoutBtn.addEventListener('click', () => {
+      console.log('working');
+      disconnect();
+    });
+  }
 })();

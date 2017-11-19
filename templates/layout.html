@@ -71,6 +71,8 @@
     </div>
   </footer>
   <script>
+    const loginBtn = document.getElementById('loginBtn');
+
     function getUserData() {
       FB.api('/me', response => {
         // document.getElementById('response').innerHTML = `Hello ${response.name}`;
@@ -112,26 +114,28 @@
     })(document, 'script', 'facebook-jssdk');
 
     // add event listener to login button
-    document.getElementById('loginBtn').addEventListener(
-      'click',
-      () => {
-        // do the login
-        FB.login(
-          response => {
-            if (response.authResponse) {
-              // user just authorized your app
-              // document.getElementById('loginBtn').style.display = 'none';
-              getUserData();
-              sendTokenToServer();
+    if (loginBtn !== null) {
+      loginBtn.addEventListener(
+        'click',
+        () => {
+          // do the login
+          FB.login(
+            response => {
+              if (response.authResponse) {
+                // user just authorized your app
+                // document.getElementById('loginBtn').style.display = 'none';
+                getUserData();
+                sendTokenToServer();
+              }
+            }, {
+              scope: 'email,public_profile',
+              return_scopes: true
             }
-          }, {
-            scope: 'email,public_profile',
-            return_scopes: true
-          }
-        );
-      },
-      false
-    );
+          );
+        },
+        false
+      );
+    }
 
     function sendTokenToServer() {
       const access_token = FB.getAuthResponse().accessToken;
