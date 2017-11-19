@@ -52,9 +52,30 @@
         </div>
       </div>
     </nav>
-
   </header>
   <main>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <article class="message is-link">
+          <div class="message-header">
+            <p class="">Information</p>
+            <button class="delete" aria-label="delete"></button>
+          </div>
+          <div class="message-body has-text-centered">
+            <ul>
+              {% for message in messages %}
+              <li>
+                <strong> {{ message }} </strong>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+          </div>
+        </article>
+      </div>
+    </div>
     <div id="content">{% block content %}{% endblock %}</div>
   </main>
   <!-- Hero footer: will stick at the bottom -->

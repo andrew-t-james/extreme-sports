@@ -1,22 +1,23 @@
 {% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 <section class="section">
-  <div class="section has-text-right">
-    {% if 'user_id' in session %}
-    <a href="{{ url_for('edit_sport', sport_id=sport_id.id)}}">edit |</a>
-    <a href="{{ url_for('delete_sport', sport_id=sport_id.id)}}">delete</a>
-    {% endif %}
-  </div>
+
   <div class="container">
     <h1 class="title has-text-info">{{sport_id.name}}</h1>
-
-    <p>{{sport_id.description}}
-      <a href={{sport_id.description_link}} target="_blank">Wikipedia</a>
-    </p>
     <div class="section">
       <figure class="image is-3by2">
         <img src="{{sport_id.image_link}}" alt="{{sport_id.name}}">
       </figure>
     </div>
+    <p>{{sport_id.description}}
+      <a href={{sport_id.description_link}} target="_blank">Wikipedia</a>
+    </p>
+    <div class=" has-text-right">
+      {% if 'user_id' in session %}
+      <a href="{{ url_for('edit_sport', sport_id=sport_id.id)}}">edit |</a>
+      <a href="{{ url_for('delete_sport', sport_id=sport_id.id)}}">delete</a>
+      {% endif %}
+    </div>
+
   </div>
 
 </section>

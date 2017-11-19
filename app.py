@@ -126,6 +126,7 @@ def fbconnect():
 
 @app.route('/fbdisconnect')
 def fbdisconnect():
+    '''Disconnect from facebook'''
     facebook_id = login_session['facebook_id']
     # The access token must me included to successfully logout
     access_token = login_session['access_token']
@@ -139,6 +140,7 @@ def fbdisconnect():
 # Disconnect based on provider
 @app.route('/disconnect')
 def disconnect():
+    '''Disconnect User based on provider'''
     if 'provider' in login_session:
         if login_session['provider'] == 'facebook':
             fbdisconnect()
@@ -148,10 +150,8 @@ def disconnect():
         del login_session['picture']
         del login_session['user_id']
         del login_session['provider']
-        flash("You have successfully been logged out.")
         return redirect(url_for('index'))
     else:
-        flash("You were not logged in")
         return redirect(url_for('index'))
 
 
@@ -165,6 +165,14 @@ def create_user(login_session):
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
+
+
+def get_user_info(user_id):
+    '''Check for user, if user info return user'''
+    user = session.query(User).filter_by(id=user_id).one()
+    if user:
+        return user
+    return user
 
 
 def get_user_id(email):
@@ -197,13 +205,6 @@ def index():
     login_session['state'] = state
     categories = session.query(Categories).all()
     return render_template("index.html", categories=categories, STATE=state,)
-
-
-def get_user_info(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
-    if user:
-        return user
-    return user
 
 
 @app.route("/sport/<int:sport_id>")
@@ -241,14 +242,6 @@ def season(sport_season):
 def new_sport():
     '''Add new Sport Route using GET to render the form,
     POST to submit the new sport to the database'''
-    # current_user = session.query(User).filter_by(
-    #     id=login_session['user_id']).one()
-    # creator = get_user_info(current_user.id)
-    # if creator.id != login_session['user_id']:
-    #     # flash("You cannot edit this Category. This Category belongs to %s" %
-    #     #       creator.name)
-    #     # return redirect(url_for('showCatalog'))
-    #     return render_template('index.html')
     if request.method == 'POST':
         new_sport_to_add = Sports(
             name=request.form['name'],
@@ -267,7 +260,7 @@ def new_sport():
 
 
 @app.route('/sport/<int:sport_id>/edit', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def edit_sport(sport_id):
     '''Route search for and Edit a specific sport from the database'''
     edited_sport = session.query(Sports).filter_by(id=sport_id).one()
@@ -292,7 +285,7 @@ def edit_sport(sport_id):
 
 
 @app.route('/sport/<int:sport_id>/delete', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def delete_sport(sport_id):
     '''Route search for and to Delete a specific sport from the database'''
     sport_to_delete = session.query(Sports).filter_by(id=sport_id).first()
