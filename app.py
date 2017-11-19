@@ -1,11 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-app = Flask(__name__)
-
-
+from flask import Flask, render_template, request, redirect,\
+    url_for, flash, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Categories, Sports, User
-
 from functools import wraps
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
@@ -16,6 +13,8 @@ import json
 import requests
 import random
 import string
+
+app = Flask(__name__)
 
 
 engine = create_engine('sqlite:///catalogue.db')
@@ -69,23 +68,27 @@ def fbconnect():
         'web']['app_id']
     app_secret = json.loads(
         open('fb_client_secrets.json', 'r').read())['web']['app_secret']
-    url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
-        app_id, app_secret, access_token)
+    url = 'https://graph.facebook.com/oauth/access_token?'\
+          'grant_type=fb_exchange_token&client_id=%s&'\
+          'client_secret=%s&fb_exchange_token=%s' % (
+              app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
 
     # Use token to get user info from API
     userinfo_url = "https://graph.facebook.com/v2.11/me"
     '''
-        Due to the formatting for the result from the server token exchange we have to
-        split the token first on commas and select the first index which gives us the key : value
-        for the server access token then we split it on colons to pull out the actual token value
-        and replace the remaining quotes with nothing so that it can be used directly in the graph
-        api calls
+        Due to the formatting for the result from the server token
+        exchange we have to split the token first on commas and
+        select the first index which gives us the key : value for
+        the server access token then we split it on colons to pull
+        out the actual token value and replace the remaining quotes
+        with nothing so that it can be used directly in the graph api calls
     '''
     token = result.split(',')[0].split(':')[1].replace('"', '')
 
-    url = 'https://graph.facebook.com/v2.11/me?access_token=%s&fields=name,id,email' % token
+    url = 'https://graph.facebook.com/v2.11/me?access_token='\
+        '%s&fields=name,id,email' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
@@ -98,7 +101,8 @@ def fbconnect():
     login_session['access_token'] = token
 
     # Get user picture
-    url = 'https://graph.facebook.com/v2.11/me/picture?access_token=%s&redirect=0&height=200&width=200' % token
+    url = 'https://graph.facebook.com/v2.11/me/picture?access_token='\
+        '%s&redirect=0&height=200&width=200' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
@@ -106,9 +110,9 @@ def fbconnect():
     login_session['picture'] = data["data"]["url"]
 
     # see if user exists
-    user_id = getUserID(login_session['email'])
+    user_id = get_user_id(login_session['email'])
     if not user_id:
-        user_id = createUser(login_session)
+        user_id = create_user(login_session)
     login_session['user_id'] = user_id
 
     output = ''
@@ -116,9 +120,6 @@ def fbconnect():
     output += login_session['username']
 
     output += '!</h1>'
-    output += '<img src="'
-    output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("Now logged in as %s" % login_session['username'])
     return output
 
@@ -155,16 +156,19 @@ def disconnect():
 
 
 # User Helper Functions
-def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
-    session.add(newUser)
+def create_user(login_session):
+    '''If user does not exist, create a new user in DB'''
+    new_user = User(name=login_session['username'],
+                    email=login_session['email'],
+                    picture=login_session['picture'])
+    session.add(new_user)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
 
-def getUserID(email):
+def get_user_id(email):
+    '''Try if User exists by email'''
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
@@ -172,33 +176,16 @@ def getUserID(email):
         return None
 
 
-def login_required(f):
-    @wraps(f)
+def login_required(function):
+    '''Decorator to check if user is logged in. If not redirect to Login'''
+    @wraps(function)
     def decoreated_function(*args, **kwargs):
+        '''Conditionally Return decorated function'''
         if login_session.get('username') is None:
             flash('You need to login.', 'danger')
             return redirect(url_for('showLogin'))
-        return f(*args, **kwargs)
+        return function(*args, **kwargs)
     return decoreated_function
-
-
-# @app.route('/sport/new', methods=['GET', 'POST'])
-# @login_required
-# def create_category():
-#     """Create a new category"""
-#     if request.method == 'POST':
-#         category_name = request.form['name']
-
-#         if category_name:
-#             new_category = S(name=category_name,
-#                                     user_id=login_session['user_id'])
-#             db.session.add(new_category)
-#             db.session.commit()
-
-#             flash('New category is successfully created', 'success')
-#         return redirect(url_for('all_courses'))
-#     else:
-#         return render_template('new_category.html')
 
 
 # routes for app
@@ -209,7 +196,7 @@ def index():
                     for x in xrange(32))
     login_session['state'] = state
     categories = session.query(Categories).all()
-    return render_template("index.html", categories=categories, STATE=state, logged_in=True)
+    return render_template("index.html", categories=categories, STATE=state,)
 
 
 @app.route("/sport/<int:sport_id>")
@@ -225,11 +212,13 @@ def season(sport_season):
     if request.path == '/winter':
         sports = session.query(Sports).join(
             Categories).filter_by(id=1).all()
-        return render_template("winter.html", sports=sports, season=sport_season)
+        return render_template("winter.html", sports=sports,
+                               season=sport_season)
     elif request.path == '/summer':
         sports = session.query(Sports).join(
             Categories).filter_by(id=2).all()
-        return render_template("summer.html", sports=sports, season=sport_season)
+        return render_template("summer.html", sports=sports,
+                               season=sport_season)
     else:
         return render_template("index.html")
 
@@ -257,9 +246,10 @@ def new_sport():
 
 
 @app.route('/sport/<int:sport_id>/edit', methods=['GET', 'POST'])
+# @login_required
 def edit_sport(sport_id):
+    '''Route search for and Edit a specific sport from the database'''
     edited_sport = session.query(Sports).filter_by(id=sport_id).one()
-
     if request.method == 'POST':
         edited_sport.name = request.form['name']
         edited_sport.description = request.form['description']
@@ -270,10 +260,12 @@ def edit_sport(sport_id):
         flash("Item successfully edited")
         return redirect(url_for('sport_description', sport_id=edited_sport.id))
     else:
-        return render_template('editsport.html',  sport_id=sport_id, item=edited_sport)
+        return render_template('editsport.html',  sport_id=sport_id,
+                               item=edited_sport)
 
 
 @app.route('/sport/<int:sport_id>/delete', methods=['GET', 'POST'])
+# @login_required
 def delete_sport(sport_id):
     '''Route search for and to Delete a specific sport from the database'''
     sport_to_delete = session.query(Sports).filter_by(id=sport_id).first()
