@@ -241,7 +241,14 @@ def season(sport_season):
 def new_sport():
     '''Add new Sport Route using GET to render the form,
     POST to submit the new sport to the database'''
-
+    # current_user = session.query(User).filter_by(
+    #     id=login_session['user_id']).one()
+    # creator = get_user_info(current_user.id)
+    # if creator.id != login_session['user_id']:
+    #     # flash("You cannot edit this Category. This Category belongs to %s" %
+    #     #       creator.name)
+    #     # return redirect(url_for('showCatalog'))
+    #     return render_template('index.html')
     if request.method == 'POST':
         new_sport_to_add = Sports(
             name=request.form['name'],
@@ -289,6 +296,12 @@ def edit_sport(sport_id):
 def delete_sport(sport_id):
     '''Route search for and to Delete a specific sport from the database'''
     sport_to_delete = session.query(Sports).filter_by(id=sport_id).first()
+    creator = get_user_info(sport_to_delete.user_id)
+    if creator.id != login_session['user_id']:
+        # flash("You cannot edit this Category. This Category belongs to %s" %
+        #       creator.name)
+        # return redirect(url_for('showCatalog'))
+        return render_template('index.html')
     if request.method == 'POST':
         session.delete(sport_to_delete)
         session.commit()
