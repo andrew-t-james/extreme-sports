@@ -199,11 +199,21 @@ def index():
     return render_template("index.html", categories=categories, STATE=state,)
 
 
+def get_user_info(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    if user:
+        return user
+    return user
+
+
 @app.route("/sport/<int:sport_id>")
 def sport_description(sport_id):
     '''Route for individual Sports returns sportdescription page'''
     sport_id = session.query(Sports).filter_by(id=sport_id).first()
-    return render_template("sportdescription.html", sport_id=sport_id)
+    creator = get_user_info(sport_id.user_id)
+    if 'username' not in login_session or creator.id != login_session['user_id']:
+        return render_template("sportdescription.html", sport_id=sport_id)
+    return render_template("editsportdescription.html", sport_id=sport_id, creator_id=creator.id)
 
 
 @app.route("/<sport_season>")
