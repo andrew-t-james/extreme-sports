@@ -35,17 +35,18 @@
               Summer
             </a>
             <span class="navbar-item">
-              {% if logged_in %}
-              <a class="button is-link" id="logoutBtn">
-                <span>Logout</span>
-              </a>
-              {% endif %}
+              {% if 'username' not in session %}
               <a class="button is-link" id="loginBtn">
                 <span class="icon">
                   <i class="fa fa-facebook"></i>
                 </span>
                 <span>Login</span>
               </a>
+              {% else %}
+              <a class="button is-link" id="logoutBtn">
+                <span>Logout</span>
+              </a>
+              {% endif %}
             </span>
           </div>
         </div>
@@ -157,23 +158,6 @@
             }
           }
         });
-      });
-    }
-    const logoutBtn = document.getElementById('logoutBtn');
-    logoutBtn.addEventListener('click', () => {
-      console.log('working');
-      disconnect();
-    })
-
-    function disconnect() {
-      logoutBtn.classList.add('is-loading');
-      $.ajax({
-        type: 'GET',
-        url: '/disconnect',
-        success(result) {
-          // Handle or verify the server response if necessary.
-          window.location.href = '/';
-        }
       });
     }
   </script>

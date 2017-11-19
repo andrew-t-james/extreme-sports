@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Categories, Sports, User
 
-
+from functools import wraps
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 from flask import make_response
@@ -30,21 +30,21 @@ session = DBSession()
 def users_api():
     '''Returns a JSON Response for all categories in db'''
     user = session.query(User).all()
-    return jsonify(Users=[i.serialize for i in user])
+    return jsonify(users=[i.serialize for i in user])
 
 
 @app.route("/api/categories")
 def categories_api():
     '''Returns a JSON Response for all categories in db'''
     category = session.query(Categories).all()
-    return jsonify(Categories=[i.serialize for i in category])
+    return jsonify(categories=[i.serialize for i in category])
 
 
 @app.route("/api/sports")
 def sports_api():
     '''Returns a JSON Response for all sports in db'''
     sports = session.query(Sports).all()
-    return jsonify(Sports=[i.serialize for i in sports])
+    return jsonify(sports=[i.serialize for i in sports])
 
 
 @app.route('/login')
@@ -119,7 +119,6 @@ def fbconnect():
     output += '<img src="'
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
-
     flash("Now logged in as %s" % login_session['username'])
     return output
 
@@ -165,18 +164,41 @@ def createUser(login_session):
     return user.id
 
 
-def getUserInfo(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
-    print(user)
-    return user
-
-
 def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
     except:
         return None
+
+
+def login_required(f):
+    @wraps(f)
+    def decoreated_function(*args, **kwargs):
+        if login_session.get('username') is None:
+            flash('You need to login.', 'danger')
+            return redirect(url_for('showLogin'))
+        return f(*args, **kwargs)
+    return decoreated_function
+
+
+# @app.route('/sport/new', methods=['GET', 'POST'])
+# @login_required
+# def create_category():
+#     """Create a new category"""
+#     if request.method == 'POST':
+#         category_name = request.form['name']
+
+#         if category_name:
+#             new_category = S(name=category_name,
+#                                     user_id=login_session['user_id'])
+#             db.session.add(new_category)
+#             db.session.commit()
+
+#             flash('New category is successfully created', 'success')
+#         return redirect(url_for('all_courses'))
+#     else:
+#         return render_template('new_category.html')
 
 
 # routes for app
@@ -213,6 +235,7 @@ def season(sport_season):
 
 
 @app.route('/sport/new', methods=['GET', 'POST'])
+@login_required
 def new_sport():
     '''Add new Sport Route using GET to render the form,
     POST to submit the new sport to the database'''
@@ -222,8 +245,9 @@ def new_sport():
             description=request.form['description'],
             description_link=request.form['description_link'],
             image_link=request.form['image_link'],
-            category_id=request.form['category_id'])
-
+            category_id=request.form['category_id'],
+            user_id=login_session['user_id'])
+        print(login_session['user_id'])
         session.add(new_sport_to_add)
         session.commit()
         # flash("new menu item created!")

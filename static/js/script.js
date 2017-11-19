@@ -19,4 +19,22 @@
       });
     }
   });
+
+  function disconnect() {
+    logoutBtn.classList.add('is-loading');
+    $.ajax({
+      type: 'GET',
+      url: '/disconnect',
+      success(result) {
+        // Handle or verify the server response if necessary.
+        window.location.href = '/';
+      },
+    });
+  }
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  logoutBtn.addEventListener('click', () => {
+    console.log('working');
+    disconnect();
+  });
 })();
