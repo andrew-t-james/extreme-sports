@@ -34,6 +34,9 @@
             <a {% if request.path=='/summer' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/summer">
               Summer
             </a>
+            <a {% if request.path=='/sports' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/sports">
+              All Sports
+            </a>
             <span class="navbar-item">
               {% if 'username' not in session %}
               <a class="button is-link" id="loginBtn">

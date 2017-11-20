@@ -51,12 +51,12 @@ def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
-    # return "The current session state is %s" % login_session['state']
     return render_template('login.html', STATE=state)
 
 
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
+    '''User Facebook oAuth login in system'''
     if request.args.get('state') != login_session['state']:
         print(request.args.get('state'))
         print(login_session['state'])
@@ -204,7 +204,14 @@ def index():
                     for x in xrange(32))
     login_session['state'] = state
     categories = session.query(Categories).all()
-    return render_template("index.html", categories=categories, STATE=state,)
+    return render_template("index.html", categories=categories, STATE=state)
+
+
+@app.route("/sports")
+def all_sports():
+    '''Returns a JSON Response for all sports in db'''
+    sports = session.query(Sports).all()
+    return render_template("allsports.html", sports=sports)
 
 
 @app.route("/sport/<int:sport_id>")
@@ -233,6 +240,8 @@ def season(sport_season):
             Categories).filter_by(id=2).all()
         return render_template("summer.html", sports=sports,
                                season=sport_season)
+    elif request.path == '/sports':
+        return redirect(url_for('all_sports'))
     else:
         return render_template("index.html")
 
@@ -252,11 +261,10 @@ def new_sport():
             image_link=request.form['image_link'],
             category_id=request.form['category_id'],
             user_id=login_session['user_id'])
-        print(login_session['user_id'])
         session.add(new_sport_to_add)
         session.commit()
         flash("New Sport created!")
-        return redirect(url_for('index'))  # ------------------
+        return redirect(url_for('all_sports'))
     else:
         return render_template('newsport.html')
 
@@ -270,8 +278,7 @@ def edit_sport(sport_id):
     if creator.id != login_session['user_id']:
         flash("You cannot edit this Category. This Category belongs to %s" %
               creator.name)
-        # return redirect(url_for('showCatalog'))
-        return render_template('index.html')
+        return redirect(url_for('all_sports'))
     if request.method == 'POST':
         edited_sport.name = request.form['name']
         edited_sport.description = request.form['description']
@@ -279,7 +286,7 @@ def edit_sport(sport_id):
         edited_sport.image_link = request.form['image_link']
         edited_sport.category_id = request.form['category_id']
         session.commit()
-        flash("Item successfully edited")
+        flash("Item successfully updated.")
         return redirect(url_for('sport_description', sport_id=edited_sport.id))
     else:
         return render_template('editsport.html',  sport_id=sport_id,
@@ -293,15 +300,14 @@ def delete_sport(sport_id):
     sport_to_delete = session.query(Sports).filter_by(id=sport_id).first()
     creator = get_user_info(sport_to_delete.user_id)
     if creator.id != login_session['user_id']:
-        # flash("You cannot edit this Category. This Category belongs to %s" %
-        #       creator.name)
-        # return redirect(url_for('showCatalog'))
-        return redirect(url_for('index'))
+        flash("You cannot delete this sport post. This sport post belongs to %s" %
+              creator.name)
+        return redirect(url_for('all_sports'))
     if request.method == 'POST':
         session.delete(sport_to_delete)
         session.commit()
         flash("Item deleted")
-        return redirect(url_for('index', sport_id=sport_id))
+        return redirect(url_for('all_sports'))
     else:
         return render_template('deleteconfirm.html', sport=sport_to_delete)
 

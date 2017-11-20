@@ -1,0 +1,41 @@
+{% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+<div class="section">
+  <h1 class="title has-text-centered">All Sports</h1>
+  <p class="has-text-right">
+    <a href="{{ url_for('new_sport') }}">Add New Sport</a>
+  </p>
+</div>
+<div class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      {% for sport in sports %}
+      <div class="column is-one-third">
+        <a href="{{url_for('sport_description', sport_id = sport.id) }}">
+          <div class="card ">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{sport.image_link}}" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img src="{{sport.user.picture}}" alt="{{sport.user.name}}">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">{{sport.name}}</p>
+                  <p class="subtitle is-6">Season: {{sport.category.season}}</p>
+                  <p class="subtitle is-6">Posted By: {{sport.user.name}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
