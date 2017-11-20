@@ -190,7 +190,7 @@ def login_required(function):
     def decoreated_function(*args, **kwargs):
         '''Conditionally Return decorated function'''
         if login_session.get('username') is None:
-            flash('You need to login.', 'danger')
+            flash('You need to login.')
             return redirect(url_for('showLogin'))
         return function(*args, **kwargs)
     return decoreated_function

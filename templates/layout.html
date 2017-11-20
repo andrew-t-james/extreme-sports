@@ -56,9 +56,10 @@
       </div>
     </nav>
   </header>
-  <main>
-    {% with messages = get_flashed_messages() %} {% if messages %}
 
+  <main>
+    <div id="content">{% block content %}{% endblock %}</div>
+    {% with messages = get_flashed_messages() %} {% if messages %}
     <div class="columns" id="flashMessage">
       <div class="column is-half is-offset-one-quarter">
         <article class="message is-link">
@@ -74,26 +75,28 @@
               </li>
               {% endfor %}
             </ul>
-            {% endif %} {% endwith %}
+            {% endif %}
           </div>
         </article>
       </div>
     </div>
-    <div id="content">{% block content %}{% endblock %}</div>
+    {% endwith %}
   </main>
   <!-- Hero footer: will stick at the bottom -->
-  <footer class="footer">
-    <div class="container">
-      <div class="content has-text-centered is-vcentered">
-        <p>
-          <strong>Developed with
-            <i class="fa fa-code" aria-hidden="true"></i>
-          </strong> by
-          <a href="https://github.com/ajames20">Andrew James</a>
-        </p>
+  <div class="foorter-wrapper">
+    <footer class="footer">
+      <div class="container ">
+        <div class="content has-text-centered is-vcentered">
+          <p>
+            <strong>Developed with
+              <i class="fa fa-code" aria-hidden="true"></i>
+            </strong> by
+            <a href="https://github.com/ajames20">Andrew James</a>
+          </p>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  </div>
   <script>
     const loginBtn = document.getElementById('loginBtn');
 
@@ -179,7 +182,7 @@
             // Handle or verify the server response if necessary.
             if (result) {
               setTimeout(() => {
-                window.location.href = '/';
+                window.location.href = '/sports';
               }, 2000);
             } else {
               console.log("Error Logging in")

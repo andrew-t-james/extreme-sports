@@ -7,34 +7,35 @@
       <form action="{{url_for('new_sport')}}" method="POST">
 
         <div class="field">
-          <label class="label">Sport</label>
+          <label class="label">Sport*</label>
           <div class="control">
             <input class="input" type="text" name="name" placeholder="Name" required>
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Description URL</label>
+          <label class="label">Description URL*</label>
           <div class="control">
             <input class="input" type="text" name="description_link" placeholder="www.example.com" required>
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Image URL</label>
+          <label class="label">Image URL*</label>
           <div class="control">
             <input class="input" type="text" name="image_link" placeholder="www.example.com" required>
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Description</label>
+          <label class="label">Description*</label>
           <div class="control">
             <textarea class="textarea" name="description" placeholder="Short Description"></textarea>
           </div>
         </div>
 
         <div class="field">
+          <label class="label">Category*</label>
           <div class="control">
             <label class="radio">
               <input type="radio" name="category_id" value="1" required> Winter

@@ -1,9 +1,11 @@
 {% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 <div class="section">
   <h1 class="title has-text-centered">All Sports</h1>
-  <p class="has-text-right">
+  {% if 'user_id' in session%}
+  <p class="has-text-centered">
     <a href="{{ url_for('new_sport') }}">Add New Sport</a>
   </p>
+  {% endif %}
 </div>
 <div class="section">
   <div class="container">

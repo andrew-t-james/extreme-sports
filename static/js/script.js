@@ -32,7 +32,7 @@
       url: '/disconnect',
       success(result) {
         // Handle or verify the server response if necessary.
-        window.location.href = '/';
+        window.location.href = '/sports';
       },
     });
   }

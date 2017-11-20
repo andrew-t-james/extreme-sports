@@ -1,3 +1,16 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  position: relative;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 .hero {
   height: 85vh;
   width: 50%;
@@ -70,5 +83,14 @@
 }
 
 .login {
-  min-height: 80vh;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
 }
