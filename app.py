@@ -240,8 +240,10 @@ def season(sport_season):
 @app.route('/sport/new', methods=['GET', 'POST'])
 @login_required
 def new_sport():
-    '''Add new Sport Route using GET to render the form,
-    POST to submit the new sport to the database'''
+    '''
+    Add new Sport Route using GET to render the form,
+    POST to submit the new sport to the database
+    '''
     if request.method == 'POST':
         new_sport_to_add = Sports(
             name=request.form['name'],
@@ -253,8 +255,8 @@ def new_sport():
         print(login_session['user_id'])
         session.add(new_sport_to_add)
         session.commit()
-        # flash("new menu item created!")
-        return redirect(url_for('index'))
+        flash("New Sport created!")
+        return redirect(url_for('index'))  # ------------------
     else:
         return render_template('newsport.html')
 
@@ -266,8 +268,8 @@ def edit_sport(sport_id):
     edited_sport = session.query(Sports).filter_by(id=sport_id).one()
     creator = get_user_info(edited_sport.user_id)
     if creator.id != login_session['user_id']:
-        # flash("You cannot edit this Category. This Category belongs to %s" %
-        #       creator.name)
+        flash("You cannot edit this Category. This Category belongs to %s" %
+              creator.name)
         # return redirect(url_for('showCatalog'))
         return render_template('index.html')
     if request.method == 'POST':
@@ -294,7 +296,7 @@ def delete_sport(sport_id):
         # flash("You cannot edit this Category. This Category belongs to %s" %
         #       creator.name)
         # return redirect(url_for('showCatalog'))
-        return render_template('index.html')
+        return redirect(url_for('index'))
     if request.method == 'POST':
         session.delete(sport_to_delete)
         session.commit()

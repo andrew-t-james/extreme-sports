@@ -22,6 +22,8 @@
 
   // login for logout flow
   const logoutBtn = document.getElementById('logoutBtn');
+  const flashMessage = document.getElementById('flashMessage');
+  const deleteBtn = document.getElementById('delete');
 
   function disconnect() {
     logoutBtn.classList.add('is-loading');
@@ -41,4 +43,10 @@
       disconnect();
     });
   }
+
+  deleteBtn.addEventListener('click', () => {
+    console.log('working');
+    // disconnect();
+    flashMessage.classList.add('none');
+  });
 })();
