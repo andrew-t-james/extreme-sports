@@ -10,8 +10,8 @@ The Flask application uses stored HTML templates in the templates folder to buil
 
 
 ## Installation
-There are some dependancies and a few instructions on how to run the application.
-Seperate instructions are provided to get GConnect working also.
+There are some dependencies and a few instructions on how to run the application.
+Separate instructions are provided to get GConnect working also.
 
 ## Dependencies
 - [Vagrant](https://www.vagrantup.com/)
@@ -29,7 +29,7 @@ Seperate instructions are provided to get GConnect working also.
 6. Insert fake data `python dbsetup.py`
 
 ```
-Only if Data is not present run this commmand
+Only if Data is not present run this command
 ```
 
 7. Run application using `python app.py`
