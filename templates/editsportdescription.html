@@ -11,10 +11,8 @@
       <a href={{sport_id.description_link}} target="_blank">Wikipedia</a>
     </p>
     <div class=" has-text-right">
-      {% if 'user_id' in session %}
       <a href="{{ url_for('edit_sport', sport_id=sport_id.id)}}">edit |</a>
       <a href="{{ url_for('delete_sport', sport_id=sport_id.id)}}">delete</a>
-      {% endif %}
     </div>
   </div>
 </section>
