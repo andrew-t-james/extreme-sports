@@ -13,7 +13,7 @@
       {% for sport in sports %}
       <div class="column is-one-third">
         <a href="{{url_for('sport_description', sport_id = sport.id) }}">
-          <div class="card ">
+          <div class="card">
             <div class="card-image">
               <figure class="image is-4by3">
                 <img src="{{sport.image_link}}" alt="Placeholder image">
@@ -23,7 +23,7 @@
               <div class="media">
                 <div class="media-left">
                   <figure class="image is-48x48">
-                    <img src="{{sport.user.picture}}" alt="{{sport.user.name}}">
+                    <img class="image-round" src="{{sport.user.picture}}" alt="{{sport.user.name}}">
                   </figure>
                 </div>
                 <div class="media-content">

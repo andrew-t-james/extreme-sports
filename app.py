@@ -215,9 +215,11 @@ def sport_description(sport_id):
     '''
     sport_id = session.query(Sports).filter_by(id=sport_id).first()
     creator = get_user_info(sport_id.user_id)
-    if 'username' not in login_session or creator.id != login_session['user_id']:
+    if 'username' not in login_session or\
+            creator.id != login_session['user_id']:
         return render_template("sportdescription.html", sport_id=sport_id)
-    return render_template("editsportdescription.html", sport_id=sport_id, creator_id=creator.id)
+    return render_template("editsportdescription.html", sport_id=sport_id,
+                           creator_id=creator.id)
 
 
 @app.route("/<sport_season>")
@@ -293,7 +295,8 @@ def delete_sport(sport_id):
     sport_to_delete = session.query(Sports).filter_by(id=sport_id).first()
     creator = get_user_info(sport_to_delete.user_id)
     if creator.id != login_session['user_id']:
-        flash("You cannot delete this sport post. This sport post belongs to %s" %
+        flash("You cannot delete this sport post."
+              " This sport post belongs to %s" %
               creator.name)
         return redirect(url_for('all_sports'))
     if request.method == 'POST':

@@ -94,3 +94,7 @@ html {
   position: relative;
   bottom: 0;
 }
+
+.image-round {
+  border-radius: 50%;
+}
