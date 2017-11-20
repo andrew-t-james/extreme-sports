@@ -1,7 +1,8 @@
 {% extends "layout.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
-<fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-  <a href='sendTokenToServer()'>Login with Facebook</a>
-</fb:login-button>
+<div class="section login">
+  <h1 class="title has-text-centered">Login</h1>
+  <p class="has-text-centered">Please Login with Facebook</p>
+</div>
 
 <script>
   window.fbAsyncInit = function () {

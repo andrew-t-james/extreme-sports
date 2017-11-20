@@ -68,3 +68,7 @@
 .none {
   visibility: hidden;
 }
+
+.login {
+  min-height: 80vh;
+}

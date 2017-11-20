@@ -44,9 +44,9 @@
     });
   }
 
-  deleteBtn.addEventListener('click', () => {
-    console.log('working');
-    // disconnect();
-    flashMessage.classList.add('none');
-  });
+  if (deleteBtn !== null) {
+    deleteBtn.addEventListener('click', () => {
+      flashMessage.classList.add('none');
+    });
+  }
 })();
