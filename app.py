@@ -25,13 +25,6 @@ session = DBSession()
 
 
 # api json endpoints
-@app.route("/api/users")
-def users_api():
-    '''Returns a JSON Response for all categories in db'''
-    user = session.query(User).all()
-    return jsonify(users=[i.serialize for i in user])
-
-
 @app.route("/api/categories")
 def categories_api():
     '''Returns a JSON Response for all categories in db'''
