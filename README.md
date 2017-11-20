@@ -49,6 +49,9 @@ Sports JSON: `/api/sports`
 
 ##  Edit/Delete Examples
 
-![Post]('static/assets/post.png')
+### Posts
+<img src="static/assets/post.png">
 
-![Edit/Delete]('static/assets/edit.png')
+
+### Edit/Delet
+<img src="static/assets/edit.png">
