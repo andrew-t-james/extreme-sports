@@ -45,13 +45,3 @@ Catalog JSON: `/api/categories`
 
 Sports JSON: `/api/sports`
     - Displays all sports
-
-
-##  Edit/Delete Examples
-
-### Posts
-<img src="static/assets/post.png">
-
-
-### Edit/Delet
-<img src="static/assets/edit.png">

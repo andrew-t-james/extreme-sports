@@ -223,7 +223,7 @@ def sport_description(sport_id):
                            creator_id=creator.id)
 
 
-@app.route("/<sport_season>")
+@app.route("/<path:sport_season>")
 def season(sport_season):
     '''Conditionally Render season page based on season'''
     if request.path == '/winter':
