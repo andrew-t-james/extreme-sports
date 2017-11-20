@@ -49,7 +49,7 @@ def showLogin():
 
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
-    '''User Facebook oAuth login in system'''
+    '''User Facebook oAuth login in system taken form Udacity Course'''
     if request.args.get('state') != login_session['state']:
         print(request.args.get('state'))
         print(login_session['state'])
