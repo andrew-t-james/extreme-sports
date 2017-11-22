@@ -40,10 +40,10 @@ class Sports(Base):
     __tablename__ = 'sport'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(80), nullable=False)
+    name = Column(String(250), nullable=False)
     description = Column(String(1000))
     description_link = Column(String(1000))
-    image_link = Column(String(100))
+    image_link = Column(String(1000))
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship('Categories')
     user_id = Column(Integer, ForeignKey('user.id'))
