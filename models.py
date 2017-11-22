@@ -61,6 +61,6 @@ class Sports(Base):
         }
 
 
-ENGINE = create_engine('sqlite:///catalogue.db')
+ENGINE = create_engine('postgresql://catalog:password@localhost/catalog')
 
 Base.metadata.create_all(ENGINE)
