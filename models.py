@@ -41,7 +41,7 @@ class Sports(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
-    description = Column(String(250))
+    description = Column(String(1000))
     description_link = Column(String(250))
     image_link = Column(String(250))
     category_id = Column(Integer, ForeignKey('categories.id'))
