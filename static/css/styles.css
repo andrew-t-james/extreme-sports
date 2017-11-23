@@ -87,7 +87,6 @@ html {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px solid red;
   height: calc(100vh - 210px);
 }
 
