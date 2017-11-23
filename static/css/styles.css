@@ -83,11 +83,12 @@ html {
 }
 
 .login {
-  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border: 1px solid red;
+  height: calc(100vh - 210px);
 }
 
 .footer {
@@ -97,4 +98,11 @@ html {
 
 .image-round {
   border-radius: 50%;
+}
+
+video {
+  object-fit: cover;
+  min-height: 100vh;
+  min-width: 100%;
+  overflow: hidden;
 }
