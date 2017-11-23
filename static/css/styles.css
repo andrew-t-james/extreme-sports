@@ -98,3 +98,10 @@ html {
 .image-round {
   border-radius: 50%;
 }
+
+video {
+  object-fit: cover;
+  min-height: 100vh;
+  min-width: 100%;
+  overflow: hidden;
+}
