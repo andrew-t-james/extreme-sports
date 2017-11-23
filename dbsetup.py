@@ -32,12 +32,7 @@ session.add(category1)
 session.commit()
 
 winter_sport1 = Sports(user_id=1, name="Slope Style",
-                       description="Slopestyle is a winter sport"
-                       " in which athletes ski or snowboard down a"
-                       " course including a variety of obstacles"
-                       " including rails, jumps and other terrain"
-                       " park features. Points are scored for "
-                       "amplitude, originality and quality of tricks.",
+                       description="Slopestyle is a winter sport in which athletes ski or snowboard down a course including a variety of obstacles.",
                        description_link='https://en.wikipedia.org"\
                         "/wiki/Slopestyle',
                        image_link="https://coresites-cdn.factorymedia.com/"
@@ -49,12 +44,7 @@ session.add(winter_sport1)
 session.commit()
 
 winter_sport2 = Sports(user_id=1, name="SnowCross",
-                       description="Snowcross (also snowcross) is a racing"
-                       " sport involving racing specialized high performance"
-                       " snowmobiles on natural or artificially-made tracks"
-                       " consisting of tight turns, banked corners, steep"
-                       " jumps and obstacles. Riders race at speed of up to"
-                       " 60 miles per hour(96 kilometers per hour).",
+                       description="Snowcross (also snowcross) is a racing sport involving racing specialized high performance snowmobiles.",
                        description_link="https://en.wikipedia.org/"
                        "wiki/Snocross",
                        image_link="https://upload.wikimedia.org/wikipedia"
@@ -66,14 +56,8 @@ session.add(winter_sport2)
 session.commit()
 
 winter_sport3 = Sports(user_id=1, name="Snowmobile Freestyle",
-                       description="The second half of the 20th"
-                       " century saw the rise of recreational"
-                       " snowmobiling, whose riders are called"
-                       " snowmobilers or sledders. Recreational"
-                       " riding is known as snowcross/racing, trail"
-                       " riding, freestyle, mountain climbing, "
-                       "boondocking, carving, ditchbanging and "
-                       "grass drags.", description_link="https://en.wikipedia"
+                       description="The second half of the 20th century saw the rise of recreational snowmobiling, whose riders are called snowmobilers or sledders.",
+                       description_link="https://en.wikipedia"
                        ".org/wiki/Snowmobile",
                        image_link="http://kristianbogner.com/wp-content/"
                        "uploads/2012/12/DSC_3660.jpg",
@@ -90,11 +74,7 @@ session.commit()
 
 
 summer_sport1 = Sports(user_id=1, name="Moto X Freestyle",
-                       description="Notable freestyle motocross"
-                       " events include Red Bull X-Fighters, "
-                       "NIGHT of the JUMPs, the X Games, Gravity"
-                       " Games, Big-X, Moto-X Freestyle National"
-                       " Championship, and Dew Action Sports Tour.",
+                       description="Notable freestyle motocross events include Red Bull X-Fighters.",
                        description_link="https://en.wikipedia.org/"
                        "wiki/Freestyle_Motocross",
                        image_link="https://i.ytimg.com/vi/SiULA6_"
@@ -105,13 +85,7 @@ session.add(summer_sport1)
 session.commit()
 
 summer_sport2 = Sports(user_id=1, name="BMX Vert",
-                       description="The earliest photographic"
-                       " documentation of BMX freestyle shows"
-                       " [1] Devin and Todd Bank in 1974 riding"
-                       " BMX bikes on an eight foot tall "
-                       "skateboard ramp they built at their"
-                       " childhood home in West Los Angeles,"
-                       " California.",
+                       description="The earliest photographic documentation of BMX freestyle shows Devin and Todd Bank in 1974 ridingBMX bikes on an eight foot tall skateboard ramp.",
                        description_link="https://en.wikipedia.org/"
                        "wiki/Freestyle_BMX#Vert_Ramp",
                        image_link="http://www.promotocross.com/sites/"
@@ -124,10 +98,7 @@ session.add(summer_sport2)
 session.commit()
 
 summer_sport3 = Sports(user_id=1, name="Skateboard Street",
-                       description="Street skateboarding is"
-                       " a style of skateboarding that focuses"
-                       " on tricks and transitions in public"
-                       " places.",
+                       description="Street skateboarding is a style of skateboarding that focuses on tricks and transitions in public places.",
                        description_link="https://en.wikipedia."
                        "org/wiki/Street_skateboarding",
                        image_link="http://a.espncdn.com/media/"
