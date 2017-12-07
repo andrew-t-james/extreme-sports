@@ -61,6 +61,7 @@ class Sports(Base):
         }
 
 
-ENGINE = create_engine('postgresql://catalog:password@localhost/catalog')
+ENGINE = create_engine('postgres://oxbmjpushkmfej:09ec5ce0c04da7f8b5fee39dec520b34faef394da654411e3c84d5edb8001f3f@ec2-184-72-247-126.compute-1.amazonaws.com:5432/dam9lqpidl03qs
+')
 
 Base.metadata.create_all(ENGINE)
