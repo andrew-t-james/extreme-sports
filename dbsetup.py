@@ -3,8 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from models import Categories, Sports, User, Base
 
-engine = create_engine('postgres://oxbmjpushkmfej:09ec5ce0c04da7f8b5fee39dec520b34faef394da654411e3c84d5edb8001f3f@ec2-184-72-247-126.compute-1.amazonaws.com:5432/dam9lqpidl03qs
-')
+engine = create_engine('postgres://oxbmjpushkmfej:09ec5ce0c04da7f8b5fee39dec520b34faef394da654411e3c84d5edb8001f3f@ec2-184-72-247-126.compute-1.amazonaws.com:5432/dam9lqpidl03qs')
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
