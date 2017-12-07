@@ -61,6 +61,6 @@ class Sports(Base):
         }
 
 
-ENGINE = create_engine('postgres://oxbmjpushkmfej:09ec5ce0c04da7f8b5fee39dec520b34faef394da654411e3c84d5edb8001f3f@ec2-184-72-247-126.compute-1.amazonaws.com:5432/dam9lqpidl03qs')
+ENGINE = create_engine('postgres://soxntrmvqyoaqj:471c8019a5142459bbeeccc5306f62987ff0ff3504092548587e0ece60183767@ec2-107-22-235-167.compute-1.amazonaws.com:5432/d9ejg9i508q546')
 
 Base.metadata.create_all(ENGINE)
