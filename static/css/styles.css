@@ -1,14 +1,14 @@
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
   position: relative;
 }
 
 html {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 .hero {
@@ -21,43 +21,43 @@ html {
 }
 
 #video--left {
-  position: fixed;
-  top: 50%;
-  left: 40%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  transform: translateX(-60%) translateY(-50%);
   background: url('../assets/snow.png') no-repeat;
   background-size: cover;
+  height: auto;
+  left: 40%;
+  min-height: 100%;
+  min-width: 100%;
+  position: fixed;
+  top: 50%;
+  transform: translateX(-60%) translateY(-50%);
+  width: auto;
+  z-index: -100;
 }
 
 #video--right {
-  position: fixed;
-  top: 50%;
-  right: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  transform: translateX(150%) translateY(-50%);
   background: url('../assets/skate.png') no-repeat;
   background-size: cover;
+  height: auto;
+  min-height: 100%;
+  min-width: 100%;
+  position: fixed;
+  right: 100%;
+  top: 50%;
+  transform: translateX(150%) translateY(-50%);
+  width: auto;
+  z-index: -100;
 }
 
 .winter {
-  background-color: hsl(217, 71%, 53%);
   background: url('../assets/snow.png') no-repeat;
+  background-color: hsl(217, 71%, 53%);
   background-size: cover;
   z-index: -101;
 }
 
 .summer {
-  background-color: hsl(171, 100%, 41%);
   background: url('../assets/skate.png') no-repeat;
+  background-color: hsl(171, 100%, 41%);
   background-size: cover;
   z-index: -101;
 }
@@ -83,16 +83,17 @@ html {
 }
 
 .login {
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
   height: calc(100vh - 210px);
+  justify-content: center;
 }
 
 .footer {
-  position: relative;
   bottom: 0;
+  position: fixed;
+  width: 100vw;
 }
 
 .image-round {
@@ -100,8 +101,8 @@ html {
 }
 
 video {
-  object-fit: cover;
   min-height: 100vh;
   min-width: 100%;
+  object-fit: cover;
   overflow: hidden;
 }
