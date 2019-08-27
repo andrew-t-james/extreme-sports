@@ -31,13 +31,16 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
-            <a {% if request.path=='/winter' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/winter">
+            <a {% if request.path=='/winter' %}class="navbar-item is-active" {% endif %} class="navbar-item"
+              href="/winter">
               Winter
             </a>
-            <a {% if request.path=='/summer' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/summer">
+            <a {% if request.path=='/summer' %}class="navbar-item is-active" {% endif %} class="navbar-item"
+              href="/summer">
               Summer
             </a>
-            <a {% if request.path=='/sports' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/sports">
+            <a {% if request.path=='/sports' %}class="navbar-item is-active" {% endif %} class="navbar-item"
+              href="/sports">
               All Sports
             </a>
             <span class="navbar-item">
@@ -87,7 +90,7 @@
   </main>
   <!-- Hero footer: will stick at the bottom -->
   <div class="footer-wrapper">
-    <footer class="footer">
+    <!-- <footer class="footer">
       <div class="container">
         <div class="content has-text-centered is-vcentered">
           <p>
@@ -98,7 +101,7 @@
           </p>
         </div>
       </div>
-    </footer>
+    </footer> -->
   </div>
   <script>
     const loginBtn = document.getElementById('loginBtn');
@@ -158,9 +161,9 @@
                 sendTokenToServer();
               }
             }, {
-              scope: 'email,public_profile',
-              return_scopes: true
-            }
+            scope: 'email,public_profile',
+            return_scopes: true
+          }
           );
         },
         false
