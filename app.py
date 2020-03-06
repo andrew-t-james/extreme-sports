@@ -18,7 +18,9 @@ import string
 app = Flask(__name__)
 
 
-engine = create_engine('postgres://soxntrmvqyoaqj:471c8019a5142459bbeeccc5306f62987ff0ff3504092548587e0ece60183767@ec2-107-22-235-167.compute-1.amazonaws.com:5432/d9ejg9i508q546')
+engine = create_engine(
+    'postgres://soxntrmvqyoaqj:471c8019a5142459bbeeccc5306f62987ff0ff3504092548587e0ece60183767@ec2-107-22-235-167.compute-1.amazonaws.com:5432/d9ejg9i508q546')
+# engine = create_engine('sqlite:///catalogue.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -60,7 +62,8 @@ def fbconnect():
     access_token = request.data
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
-    app_secret = json.loads(open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+    app_secret = json.loads(open('fb_client_secrets.json', 'r').read())[
+        'web']['app_secret']
     url = ('https://graph.facebook.com/v2.11/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s') % (app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
@@ -308,4 +311,4 @@ def delete_sport(sport_id):
 # if __name__ == '__main__':
 app.secret_key = 'super_secret_key'
 app.debug = True
-    # app.run(host='0.0.0.0', port=5000)
+# app.run(host='0.0.0.0', port=5000)

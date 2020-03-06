@@ -3,10 +3,13 @@ from sqlalchemy.orm import sessionmaker
 
 from models import Categories, Sports, User, Base
 
-engine = create_engine('postgres://soxntrmvqyoaqj:471c8019a5142459bbeeccc5306f62987ff0ff3504092548587e0ece60183767@ec2-107-22-235-167.compute-1.amazonaws.com:5432/d9ejg9i508q546')
+engine = create_engine(
+    'postgres://soxntrmvqyoaqj:471c8019a5142459bbeeccc5306f62987ff0ff3504092548587e0ece60183767@ec2-107-22-235-167.compute-1.amazonaws.com:5432/d9ejg9i508q546')
+# engine = create_engine('sqlite:///catalogue.db')
+Base.metadata.bind = engine
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
-Base.metadata.bind = engine
+# Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 # A DBSession() instance establishes all conversations with the database
@@ -33,11 +36,13 @@ session.commit()
 
 winter_sport1 = Sports(user_id=1, name="Slope Style",
                        description="Slopestyle is a winter sport in which athletes ski or snowboard down a course including a variety of obstacles.",
-                       description_link='https://en.wikipedia.org"\
-                        "/wiki/Slopestyle',
-                       image_link="https://coresites-cdn.factorymedia.com/"
-                       "mpora_new/wp-content/"
-                       "uploads/2014/02/Billy-Jamie-sochi-03.jpg",
+                       description_link="https://en.wikipedia.org"
+                       "/wiki/Slopestyle",
+                       image_link="https://images.unsplash.com"
+                       "/photo-1508244898853-0ceb7788a86a"
+                       "?ixlib=rb-1.2.1"
+                       "&ixid=eyJhcHBfaWQiOjEyMDd9"
+                       "&auto=format&fit=crop&w=2098&q=80",
                        category=category1)
 
 session.add(winter_sport1)
@@ -88,10 +93,9 @@ summer_sport2 = Sports(user_id=1, name="BMX Vert",
                        description="The earliest photographic documentation of BMX freestyle shows Devin and Todd Bank in 1974 ridingBMX bikes on an eight foot tall skateboard ramp.",
                        description_link="https://en.wikipedia.org/"
                        "wiki/Freestyle_BMX#Vert_Ramp",
-                       image_link="http://www.promotocross.com/sites/"
-                       "default/files/styles/gallery_small/public/images"
-                       "/gallery/photos/doug-bmx-vert-final-640x370."
-                       "jpg?itok=nnhd9_fr",
+                       image_link="https://images.unsplash.com/"
+                       "photo-1559895590-4082eb95a5aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
+                       "&auto=format&fit=crop&w=1841&q=80",
                        category=category2)
 
 session.add(summer_sport2)
