@@ -14,14 +14,22 @@ import json
 import requests
 import random
 import string
+import os
 
 app = Flask(__name__)
+DATABASE_URL = os.environ.get('HEROKU_POSTGRESQL_BLACK_URL')
 
 
-engine = create_engine('postgres://soxntrmvqyoaqj:471c8019a5142459bbeeccc5306f62987ff0ff3504092548587e0ece60183767@ec2-107-22-235-167.compute-1.amazonaws.com:5432/d9ejg9i508q546')
-Base.metadata.bind = engine
+if DATABASE_URL == None:
+    connection_string = 'sqlite:///catalogue.db'
+else:
+    connection_string = DATABASE_URL
 
-DBSession = sessionmaker(bind=engine)
+ENGINE = create_engine(connection_string)
+
+Base.metadata.bind = ENGINE
+
+DBSession = sessionmaker(bind=ENGINE)
 session = DBSession()
 
 
@@ -43,7 +51,7 @@ def sports_api():
 @app.route('/login')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+                    for x in range(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
@@ -60,7 +68,8 @@ def fbconnect():
     access_token = request.data
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
-    app_secret = json.loads(open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+    app_secret = json.loads(open('fb_client_secrets.json', 'r').read())[
+        'web']['app_secret']
     url = ('https://graph.facebook.com/v2.11/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s') % (app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
@@ -191,7 +200,7 @@ def login_required(function):
 def index():
     '''Home Route returns a list of all Categories and Renders index page'''
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+                    for x in range(32))
     login_session['state'] = state
     categories = session.query(Categories).all()
     return render_template("index.html", categories=categories, STATE=state)
@@ -305,7 +314,9 @@ def delete_sport(sport_id):
         return render_template('deleteconfirm.html', sport=sport_to_delete)
 
 
-# if __name__ == '__main__':
-app.secret_key = 'super_secret_key'
-app.debug = True
-    # app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    app.secret_key = 'super_secret_key'
+    app.debug = True
+    app.run(host='0.0.0.0', port=5000)
+else:
+    app.secret_key = 'super_secret_key'

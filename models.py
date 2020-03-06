@@ -2,10 +2,11 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+import os
 
+DATABASE_URL = os.environ.get('HEROKU_POSTGRESQL_BLACK_URL')
 
 Base = declarative_base()
-
 
 class User(Base):
     '''Create model for User and relationship to Sport'''
@@ -61,6 +62,13 @@ class Sports(Base):
         }
 
 
-ENGINE = create_engine('postgres://soxntrmvqyoaqj:471c8019a5142459bbeeccc5306f62987ff0ff3504092548587e0ece60183767@ec2-107-22-235-167.compute-1.amazonaws.com:5432/d9ejg9i508q546')
+if DATABASE_URL == None:
+    connection_string = 'sqlite:///catalogue.db'
+else:
+    connection_string = DATABASE_URL
+
+ENGINE = create_engine(connection_string)
 
 Base.metadata.create_all(ENGINE)
+
+print("added models!")
