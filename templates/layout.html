@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel=stylesheet type=text/css href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/styles.css') }}">
-  <title>Catalogue</title>
+  <title>Extreme Sports</title>
   {% endblock %}
 
 </head>
@@ -31,13 +31,16 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
-            <a {% if request.path=='/winter' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/winter">
+            <a {% if request.path=='/winter' %}class="navbar-item is-active" {% endif %} class="navbar-item"
+              href="/winter">
               Winter
             </a>
-            <a {% if request.path=='/summer' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/summer">
+            <a {% if request.path=='/summer' %}class="navbar-item is-active" {% endif %} class="navbar-item"
+              href="/summer">
               Summer
             </a>
-            <a {% if request.path=='/sports' %}class="navbar-item is-active" {% endif %} class="navbar-item" href="/sports">
+            <a {% if request.path=='/sports' %}class="navbar-item is-active" {% endif %} class="navbar-item"
+              href="/sports">
               All Sports
             </a>
             <span class="navbar-item">
@@ -86,9 +89,9 @@
     {% endwith %}
   </main>
   <!-- Hero footer: will stick at the bottom -->
-  <div class="foorter-wrapper">
-    <footer class="footer">
-      <div class="container ">
+  <div class="footer-wrapper">
+    <!-- <footer class="footer">
+      <div class="container">
         <div class="content has-text-centered is-vcentered">
           <p>
             <strong>Developed with
@@ -98,7 +101,7 @@
           </p>
         </div>
       </div>
-    </footer>
+    </footer> -->
   </div>
   <script>
     const loginBtn = document.getElementById('loginBtn');
@@ -158,9 +161,9 @@
                 sendTokenToServer();
               }
             }, {
-              scope: 'email,public_profile',
-              return_scopes: true
-            }
+            scope: 'email,public_profile',
+            return_scopes: true
+          }
           );
         },
         false

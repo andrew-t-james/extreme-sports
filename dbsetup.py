@@ -3,10 +3,13 @@ from sqlalchemy.orm import sessionmaker
 
 from models import Categories, Sports, User, Base
 
-engine = create_engine('sqlite:///catalogue.db')
+engine = create_engine(
+    'postgres://soxntrmvqyoaqj:471c8019a5142459bbeeccc5306f62987ff0ff3504092548587e0ece60183767@ec2-107-22-235-167.compute-1.amazonaws.com:5432/d9ejg9i508q546')
+# engine = create_engine('sqlite:///catalogue.db')
+Base.metadata.bind = engine
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
-Base.metadata.bind = engine
+# Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 # A DBSession() instance establishes all conversations with the database
@@ -32,45 +35,21 @@ session.add(category1)
 session.commit()
 
 winter_sport1 = Sports(user_id=1, name="Slope Style",
-                       description="Slopestyle is a winter sport"
-                       " in which athletes ski or snowboard down a"
-                       " course including a variety of obstacles"
-                       " including rails, jumps and other terrain"
-                       " park features. Points are scored for "
-                       "amplitude, originality and quality of tricks."
-                       " The discipline has its roots in action sports"
-                       " like skateboarding and BMX and has very "
-                       "successfully crossed over into the snow sports"
-                       " worlds of skiing and snowboard.[1] Twin - tip"
-                       " skis are used and are particularly useful if "
-                       "the skier lands backwards. Slopestyle tricks fall"
-                       " mainly into four categories: spins, grinds, "
-                       "grabs and flips. Slopestyle is one of the freestyle"
-                       " disciplines, along with moguls, aerials, cross,"
-                       " and half - pipe.",
-                       description_link='https://en.wikipedia.org"\
-                        "/wiki/Slopestyle',
-                       image_link="https://coresites-cdn.factorymedia.com/"
-                       "mpora_new/wp-content/"
-                       "uploads/2014/02/Billy-Jamie-sochi-03.jpg",
+                       description="Slopestyle is a winter sport in which athletes ski or snowboard down a course including a variety of obstacles.",
+                       description_link="https://en.wikipedia.org"
+                       "/wiki/Slopestyle",
+                       image_link="https://images.unsplash.com"
+                       "/photo-1508244898853-0ceb7788a86a"
+                       "?ixlib=rb-1.2.1"
+                       "&ixid=eyJhcHBfaWQiOjEyMDd9"
+                       "&auto=format&fit=crop&w=2098&q=80",
                        category=category1)
 
 session.add(winter_sport1)
 session.commit()
 
 winter_sport2 = Sports(user_id=1, name="SnowCross",
-                       description="Snocross (also snowcross) is a racing"
-                       " sport involving racing specialized high performance"
-                       " snowmobiles on natural or artificially-made tracks"
-                       " consisting of tight turns, banked corners, steep"
-                       " jumps and obstacles. Riders race at speed of up to"
-                       " 60 miles per hour (96 kilometers per hour).[1] Jumps"
-                       " are up to 30 feet (9 meters) tall, so riders travel "
-                       "up to 130 feet (40 meters) before they touch the"
-                       " ground.[1] According to the World Snowmobile "
-                       "Association which governs snocross, watercross,"
-                       " and hillcross racing, snocross is the most "
-                       "popular form of snowmobile racing.[2]",
+                       description="Snowcross (also snowcross) is a racing sport involving racing specialized high performance snowmobiles.",
                        description_link="https://en.wikipedia.org/"
                        "wiki/Snocross",
                        image_link="https://upload.wikimedia.org/wikipedia"
@@ -82,20 +61,8 @@ session.add(winter_sport2)
 session.commit()
 
 winter_sport3 = Sports(user_id=1, name="Snowmobile Freestyle",
-                       description="The second half of the 20th"
-                       " century saw the rise of recreational"
-                       " snowmobiling, whose riders are called"
-                       " snowmobilers or sledders. Recreational"
-                       " riding is known as snowcross/racing, trail"
-                       " riding, freestyle, mountain climbing, "
-                       "boondocking, carving, ditchbanging and "
-                       "grass drags. In the summertime snowmobilers"
-                       " can drag race on grass, asphalt strips, or"
-                       " even across water (see Snowmobile skipping)."
-                       " Snowmobiles are sometimes modified to compete"
-                       " in long-distance off-road races such as Trevor"
-                       " Erickson's #901 entry in the 2014 Vegas to"
-                       " Reno race.", description_link="https://en.wikipedia"
+                       description="The second half of the 20th century saw the rise of recreational snowmobiling, whose riders are called snowmobilers or sledders.",
+                       description_link="https://en.wikipedia"
                        ".org/wiki/Snowmobile",
                        image_link="http://kristianbogner.com/wp-content/"
                        "uploads/2012/12/DSC_3660.jpg",
@@ -112,27 +79,7 @@ session.commit()
 
 
 summer_sport1 = Sports(user_id=1, name="Moto X Freestyle",
-                       description="Notable freestyle motocross"
-                       " events include Red Bull X-Fighters, "
-                       "NIGHT of the JUMPs, the X Games, Gravity"
-                       " Games, Big-X, Moto-X Freestyle National"
-                       " Championship, and Dew Action Sports Tour."
-                       " Freeriding is the original form of "
-                       "freestyle motocross which started in "
-                       "the hills of southern California; due "
-                       "to professional racers such as Jeremy "
-                       "McGrath and Phil Lawrence play riding "
-                       "in the hills of reche canyon. It has no"
-                       " structure, and is traditionally done on"
-                       " public land. Riders for natural jumps "
-                       "and drop-offs to execute their tricks on."
-                       " Some freeriders prefer to jump on sand"
-                       " dunes. In many ways, freeriding requires"
-                       " more skill and mental ability. Notable"
-                       " freeriding locations include Ocotillo"
-                       " Wells and Glamis Dunes in California,"
-                       " Beaumont, California, and Caineville,"
-                       " Utah.",
+                       description="Notable freestyle motocross events include Red Bull X-Fighters.",
                        description_link="https://en.wikipedia.org/"
                        "wiki/Freestyle_Motocross",
                        image_link="https://i.ytimg.com/vi/SiULA6_"
@@ -143,42 +90,19 @@ session.add(summer_sport1)
 session.commit()
 
 summer_sport2 = Sports(user_id=1, name="BMX Vert",
-                       description="The earliest photographic"
-                       " documentation of BMX freestyle shows"
-                       " [1] Devin and Todd Bank in 1974 riding"
-                       " BMX bikes on an eight foot tall "
-                       "skateboard ramp they built at their"
-                       " childhood home in West Los Angeles,"
-                       " California. This was the birth of BMX"
-                       " ramp riding. Devin Bank was also "
-                       "documented doing [2] 360 degree freestyle"
-                       " spinning tricks on the street and also"
-                       " in the air by jumping off curbs. "
-                       "Skateboarder Magazine then published"
-                       " photos of kids on bikes riding in empty"
-                       " household swimming pools in 1975.",
+                       description="The earliest photographic documentation of BMX freestyle shows Devin and Todd Bank in 1974 ridingBMX bikes on an eight foot tall skateboard ramp.",
                        description_link="https://en.wikipedia.org/"
                        "wiki/Freestyle_BMX#Vert_Ramp",
-                       image_link="http://www.promotocross.com/sites/"
-                       "default/files/styles/gallery_small/public/images"
-                       "/gallery/photos/doug-bmx-vert-final-640x370."
-                       "jpg?itok=nnhd9_fr",
+                       image_link="https://images.unsplash.com/"
+                       "photo-1559895590-4082eb95a5aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
+                       "&auto=format&fit=crop&w=1841&q=80",
                        category=category2)
 
 session.add(summer_sport2)
 session.commit()
 
 summer_sport3 = Sports(user_id=1, name="Skateboard Street",
-                       description="Street skateboarding is"
-                       " a style of skateboarding that focuses"
-                       " on tricks and transitions in public"
-                       " places. Street skateboarders skate in"
-                       " urban streets, plazas or industrial"
-                       " areas, making use of park benches and"
-                       " picnic tables, guard rails and handrails,"
-                       " planter boxes, bins, stairs, retaining "
-                       "walls and other street furniture not "
-                       "purpose-built for skateboarding.",
+                       description="Street skateboarding is a style of skateboarding that focuses on tricks and transitions in public places.",
                        description_link="https://en.wikipedia."
                        "org/wiki/Street_skateboarding",
                        image_link="http://a.espncdn.com/media/"
